@@ -1,0 +1,18 @@
+{
+  "name": "imgCompressor",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "compress": "node compressImgs"
+  },
+  "dependencies": {
+    "fs-extra": "^7.0.1",
+    "imagemin": "^6.1.0",
+    "imagemin-gifsicle": "^6.0.1",
+    "imagemin-mozjpeg": "^8.0.0",
+    "imagemin-pngquant": "^7.0.0",
+    "imagemin-svgo": "^7.0.0",
+    "imagemin-webp": "^5.0.0"
+  }
+}
