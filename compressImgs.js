@@ -99,7 +99,6 @@ function logStats(files) {
 
 function getStats(file) {
 
-  console.log('emilio',file);
   let fileName = path.parse(file.sourcePath).base;
   let fileStats = fs.statSync(file.destinationPath);
   let oldFileStats = fs.statSync(path.join(inDir, fileName));
