@@ -15,10 +15,13 @@ fs.removeSync(outDir);
 
 console.log("Processing images...\n");
 
-imagemin([`${inDir}/*.{jpg,png,gif,svg,webp}`], outDir, {
+fs.mkdirSync(outDir);
+
+imagemin([`${inDir}/*.{jpg,png,gif,svg,webp}`], {
+  destination: outDir,
   plugins: [
-    imageminMozjpeg({ quality: "80" }),
-    imageminPngquant({ quality: "65-80" }),
+    imageminMozjpeg({ quality: 80 }),
+    imageminPngquant({ quality: [0.65,0.8] }),
     imageminGifsicle({ optimizationLevel: 3 }),
     imageminSVG({
       plugins: [
@@ -71,6 +74,8 @@ imagemin([`${inDir}/*.{jpg,png,gif,svg,webp}`], outDir, {
     })
   ]
 }).then(files => {
+
+  
   console.log("Image Optimization Results");
   console.log("==============================");
   logStats(files);
@@ -79,21 +84,27 @@ imagemin([`${inDir}/*.{jpg,png,gif,svg,webp}`], outDir, {
 function logStats(files) {
   let totalSaved = 0;
   files.forEach(function(obj) {
-    let stats = getStats(obj.path);
+
+
+    let stats = getStats(obj);
     console.log(
       Math.round(((stats.oldSize - stats.newSize) / stats.oldSize) * 100) + "%",
       stats.file
     );
     totalSaved += stats.oldSize - stats.newSize;
   });
-  console.log("======================\n", btokb(totalSaved) + " Saved");
+  console.log("===============================\n", btokb(totalSaved) + " Saved");
   console.log("", "Files written to " + outDir);
 }
 
 function getStats(file) {
-  let fileName = path.parse(file).base;
-  let fileStats = fs.statSync(file);
+
+  console.log('emilio',file);
+  let fileName = path.parse(file.sourcePath).base;
+  let fileStats = fs.statSync(file.destinationPath);
   let oldFileStats = fs.statSync(path.join(inDir, fileName));
+
+
   return {
     file: fileName,
     oldSize: oldFileStats["size"],
