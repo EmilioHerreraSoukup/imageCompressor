@@ -13,6 +13,6 @@
     "imagemin-mozjpeg": "^9.0.0",
     "imagemin-pngquant": "^9.0.0",
     "imagemin-svgo": "^9.0.0",
-    "imagemin-webp": "^6.0.0"
+    "imagemin-webp": "^7.0.0"
   }
 }
